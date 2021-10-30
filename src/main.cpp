@@ -16,7 +16,7 @@ string unitType = "_in"; // This is just used for displaying units in logs
 
 QLength getAndLogCalculatedDistance (double actualTicks, QLength wheelDiameter, double ticksPerRotation) {
     // calculate and log the calculatedDistance and ticks (ticks*diameter*1_pi)/ticksPerRotation) see: https://www.desmos.com/calculator/7dq6i84ugm
-    QLength calculatedDistance = 0 * meter;
+    QLength calculatedDistance = (actualTicks*wheelDiameter*1_pi)/ticksPerRotation; 
     cout << "Calculated Distance\t" << displayQLength(calculatedDistance) << unitType
          << "\tTicks\t" << actualTicks << "\n";
     return calculatedDistance;
@@ -24,8 +24,8 @@ QLength getAndLogCalculatedDistance (double actualTicks, QLength wheelDiameter, 
 
 QAngle getAndLogCalculatedAngle (double actualTicks, QLength wheelDiameter, double ticksPerRotation, QLength trackDiameter) {
     // calculate and log the calculatedDistance and ticks
-    QLength calculatedDistance = 0 * meter;
-    QAngle calculatedAngle = 0 * radian;
+    QLength calculatedDistance = (actualTicks*wheelDiameter*1_pi)/ticksPerRotation;
+    QAngle calculatedAngle = calculatedDistance*radian/trackDiameter; //This is calculated in Radian
     cout << "Calculated Angle\t" << displayQAngle(calculatedAngle)
         << "\tTicks\t" << actualTicks << "\n";
     return calculatedAngle;
@@ -45,14 +45,14 @@ QLength calculateNewWheelDiameter (QLength actualDistance, QLength calculatedDis
      * Also, use the graph linked above to determine if your program is working properly.
      */
     // Step 1. Make sure that your wheelDiameter, actualTicks, and ticksPerRotation are correct, by finding the ticks from the calculatedDistance
-    double calculatedTicks = 0;
+    double calculatedTicks = (calculatedDistance.convert(meter)*ticksPerRotation)/(wheelDiameter.convert(meter)*1_pi);
 
     cout << "If the calculatedTicks: " << calculatedTicks 
         << " is equal to the actualTicks: " << actualTicks 
         << ", then the following is true:" << "\n";
 
     // Step 2. Calculate the newWheelDiameter to set the actualTicks to a certain distance
-    QLength newWheelDiameter = 0 * meter;
+    QLength newWheelDiameter = (actualDistance*ticksPerRotation)/(1_pi*calculatedTicks);
 
     cout << "If you change the wheelDiameter: " << displayQLength(wheelDiameter) << unitType 
          << " to the newWheelDiameter " << displayQLength(newWheelDiameter) << unitType
@@ -75,13 +75,13 @@ QLength calculateNewTrackDiameter (QAngle actualAngle, QAngle calculatedAngle, d
      * https://www.desmos.com/calculator/7dq6i84ugm
      */
     // Step 1. Calculate the distance with getAndLogCalculatedDistance
-    QLength calculatedDistance = 0 * meter;
+    QLength calculatedDistance = getAndLogCalculatedDistance(actualTicks, wheelDiameter, ticksPerRotation);
 
     cout << "calculatedAngle: " << displayQAngle(calculatedAngle) 
          << " should be close to the actualAngle: " << displayQAngle(actualAngle) << "\n";
 
     // Step 2. Calculate the newTrackDiameter to set the actualTicks to a certain angle
-    QLength newTrackDiameter = 0 * meter;
+    QLength newTrackDiameter = calculatedDistance/actualAngle.convert(radian);
 
     cout << "If you change the trackDiameter: " << displayQLength(trackDiameter) << unitType 
          << " to the newTrackDiameter " << displayQLength(newTrackDiameter) << unitType

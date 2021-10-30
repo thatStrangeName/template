@@ -292,6 +292,8 @@ shared_ptr<ChassisController> drive = ChassisControllerBuilder()
                 }
         ).build();
 
+
+
 /** Controller **/
 shared_ptr<Controller> master = make_shared<Controller>();
 ControllerButton a(ControllerDigital::A);
@@ -310,7 +312,7 @@ ControllerButton right(ControllerDigital::right);
 
 /** Cool Stuff **/
 const double displayQLengthRatio = (1*inch).getValue();
-double displayQLength(QLength length) ( return length.getValue()/displayQLengthRatio;)
+double displayQLength(QLength length) { return length.getValue()/displayQLengthRatio; }
 
 const double displayQAngleRatio = (1*degree).getValue();
 double displayQAngle(QAngle angle) { return angle.getValue()/displayQAngleRatio; }

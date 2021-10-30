@@ -42,6 +42,12 @@ extern ControllerButton left;
 extern ControllerButton right;
 
 /** Cool Stuff **/
+// Convert QLength to the unit in robot.cpp line 307 See: https://okapilib.github.io/OkapiLib/md_docs_api_units.html
+double displayQLength(QLength length);
+
+// Convert QAngle to degrees
+double displayQAngle(QAngle angle);
+
 // pid controller for the lift
 //      world's best PID demo in existence https://www.youtube.com/watch?v=fusr9eTceEo
 //      how to program page 13-14: https://github.com/team914/autolib-pdfs/blob/master/pid-controllers.pdf
