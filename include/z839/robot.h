@@ -19,7 +19,7 @@ using namespace std;
 
 
 /** Robot Sub Systems (intake, lift, etc) **/
-extern Motor lift; // can either Motor or MotorGroup
+extern shared_ptr<Motor> lift; // can either Motor or MotorGroup
 extern MotorGroup intake; // can either Motor or MotorGroup
 
 /** Robot drive **/
@@ -46,4 +46,4 @@ extern ControllerButton right;
 //      world's best PID demo in existence https://www.youtube.com/watch?v=fusr9eTceEo
 //      how to program page 13-14: https://github.com/team914/autolib-pdfs/blob/master/pid-controllers.pdf
 //      how to program page 1-12: https://github.com/team914/autolib-pdfs/blob/master/pid-controllers.pdf
-extern shared_ptr<AsyncPositionController<double, double>> liftController;
+extern shared_ptr<AsyncPosPIDController> liftController;
